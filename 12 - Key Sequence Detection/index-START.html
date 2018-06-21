@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+
+  const storage = []
+  const keyWord = 'wesbos'
+
+  function detectString(e){
+    storage.push(e.key)
+    storage.splice(-keyWord.length-1,storage.length-keyWord.length)
+    // console.log(storage)
+    if (storage.join('') === keyWord){
+      cornify_add()
+    }
+  }
+  window.addEventListener('keyup', detectString)
 </script>
 </body>
 </html>
