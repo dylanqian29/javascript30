@@ -182,6 +182,25 @@
     </li>
   </ul>
 <script>
+  videos = document.querySelectorAll('li')
+  // console.log(videos)
+  let timeArray = []
+  videos.forEach(video => timeArray.push(video.dataset.time))
+  let totalSec = 0 
+  let min,sec
+  timeArray.forEach((time) =>{
+    min = Number(time.split(':')[0])
+    sec = Number(time.split(':')[1])
+    totalSec += min*60 + sec
+    // console.log(totalSec)
+  })
+  let totalHour = Math.floor(totalSec/3600)
+  totalSec = totalSec%3600
+  let totalMin = Math.floor(totalSec/60)
+  totalSec = totalSec%60
+
+  console.log(totalHour+':'+ totalMin + ':' + totalSec)
+
 </script>
 </body>
 </html>
