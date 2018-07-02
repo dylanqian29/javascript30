@@ -58,6 +58,18 @@
     /*Compass: https://thenounproject.com/search/?q=compass&i=592352*/
   </style>
   <script>
+
+    let speed = document.querySelector('.speed-value')
+    let arrow = document.querySelector('.arrow')
+    
+    navigator.geolocation.watchPosition((data)=>{
+      speed.textContent = data.coords.speed
+      arrow.style.transform = `rotata(${data.coords.heading}deg)`
+    }, (err) => {
+      alert('You need to allow this action first!')
+    })
+
+
   </script>
 </body>
 </html>
