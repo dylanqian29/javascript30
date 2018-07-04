@@ -35,6 +35,40 @@
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+
+  msg.text = document.querySelector('textarea').value
+  // console.log(msg)
+
+  function populateVoices(){
+    voices = this.getVoices()
+    voicesDropdown.innerHTML = voices.map((voice)=>{
+      return `<option value = ${voice.name}> ${voice.name} ${voice.lang} </option>`
+    }).join('')
+    msg.voice = voices[0]
+  }
+
+  function setVoice(){
+    msg.voice = voices.find((voice) => voice.name === this.value)
+  }
+
+  function toggle(startOver = true){
+    speechSynthesis.cancel()
+    if (startOver){
+      speechSynthesis.speak(msg)
+    }
+  }
+  
+  function changeValue(){
+    msg[this.name] = this.value
+    toggle()
+  }
+
+  speechSynthesis.addEventListener('voiceschanged', populateVoices);
+  voicesDropdown.addEventListener('change',setVoice);
+  speakButton.addEventListener('click',toggle)
+  stopButton.addEventListener('click', toggle.bind(null,false))
+  options.forEach(option => option.addEventListener('change', changeValue))
+
 </script>
 
 </body>
