@@ -221,6 +221,47 @@
 </style>
 
 <script>
+
+  const cool = document.querySelectorAll('.cool > li')
+  const background = document.querySelector('.dropdownBackground')
+  const nav = document.querySelector('.top')
+
+  function handleEnter(){
+    this.classList.add('trigger-enter')
+    setTimeout(() => { this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active')}, 50);
+    background.classList.add('open')
+
+    const dropdown = this.querySelector('.dropdown')
+    const dropdownCoords = dropdown.getBoundingClientRect()
+    const navCoords = nav.getBoundingClientRect()
+    
+    const top = dropdownCoords.top - navCoords.top
+    const left = dropdownCoords.left - navCoords.left
+        console.log(top,left)
+
+    background.style.setProperty('width', dropdownCoords.width +'px')
+    background.style.setProperty('height', dropdownCoords.height +'px')
+    background.style.setProperty('transform',`translate(${left}px, ${top}px)`)
+
+
+  }
+
+
+  function handleLeave(){
+    this.classList.remove('trigger-enter','trigger-enter-active')
+    background.classList.remove('open')
+  }
+
+
+
+  cool.forEach((item)=>{
+    item.addEventListener('mouseenter', handleEnter)
+  })
+
+  cool.forEach((item) => {
+    item.addEventListener('mouseleave', handleLeave)
+  })
+
 </script>
 
 </body>
